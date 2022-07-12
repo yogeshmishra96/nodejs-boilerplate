@@ -2,7 +2,7 @@
 
 module.exports = {
 	up: function (queryInterface, Sequelize) {
-		return queryInterface.createTable('server_logging',
+		return queryInterface.createTable('users',
 			{
 				id: {
 					type: Sequelize.UUID,
@@ -11,11 +11,27 @@ module.exports = {
 					unique: true,
 					defaultValue: Sequelize.UUIDV4
 				},
-				module: {
+				firstName: {
+					type: Sequelize.STRING,
+					field: "first_name"
+				},
+				lastName: {
+					type: Sequelize.STRING,
+					field: "last_name"
+				},
+				email: {
 					type: Sequelize.STRING
 				},
-				description: {
+				cellPhone: {
+					type: Sequelize.STRING,
+					field: "cell_phone"
+				},
+				password: {
 					type: Sequelize.STRING
+				},
+				profilePic: {
+					type: Sequelize.STRING,
+					field: "profile_pic"
 				},
 				createdAt: {
 					type: Sequelize.DATE,
@@ -28,6 +44,6 @@ module.exports = {
 			});
 	},
 	down: function (queryInterface, Sequelize) {
-		return queryInterface.dropTable('server_logging');
+		return queryInterface.dropTable('users');
 	}
 };

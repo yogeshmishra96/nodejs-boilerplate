@@ -1,6 +1,12 @@
-require('dotenv').config();
-const { runServer } = require("./server-config/server");
+require("dotenv").config();
 
-const mainApp = require("./server-config/main-app");
+const app = require("./src/app");
+const { startServer } = require("./src/server");
 
-runServer(mainApp);
+// Set Current Working Direcory 
+if (!process.env.CURRENT_WORKING_DIRECTORY) {
+    process.env.CURRENT_WORKING_DIRECTORY = process.cwd();
+}
+
+// Start the Server
+startServer(app);

@@ -1,27 +1,25 @@
-"use strict";
-
 const http = require("http");
 const https = require("https");
 const fs = require("fs");
-const path = require('path');
-const { createDatabaseConnection } = require("../DB/database.service");
-const { generateSelfSignedSSL, getSSLConfig } = require("./ssl-service");
-const { runMigrationsAndSeeders } = require("../DB/services/run-migration-seeders");
-const { HTTP_PORT, HTTPS_PORT } = process.env;
+const path = require("path");
+const { generateSelfSignedSSL, getSSLConfig } = require("./ssl/ssl.service");
+const { createDatabaseConnection } = require("./database/database-connection.service");
+const { runMigrationsAndSeeders  } = require("./database/services/run-migration-seeders");
+const logger = require("./logger/logger");
 
+const { HTTPS_PORT, HTTP_PORT } = process.env;
 
-const runServer = async (app) => {
+const startServer = async (app) => {
     await runMigrationsAndSeeders();
     await createDatabaseConnection();
-    if (!fs.existsSync(path.join(__dirname, "ssl/localhost.key"))) {
+    if (!fs.existsSync(path.join(__dirname, "ssl/keys/localhost.key"))) {
         await generateSelfSignedSSL();
     }
 
-    // Start the Server 
     const sslConfig = getSSLConfig();
     const secureServer = createHttpsServer(app, sslConfig);
     secureServer.listen(HTTPS_PORT, function () {
-        console.log(`Server is listening on https://localhost`);
+        console.log(`Server is listening on port ${HTTPS_PORT}`);
     });
 
     // Redirect from http port 80 to https
@@ -46,7 +44,6 @@ const createHttpsServer = (_app, sslConfig) => {
     return https.createServer(options, _app);
 }
 
-
 module.exports = {
-    runServer
+    startServer
 };

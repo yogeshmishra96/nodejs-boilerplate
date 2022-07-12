@@ -73,7 +73,7 @@ const runMigrations = async function () {
 const runSeeders = async function () {
     try {
         const sequelize = await getSequalizeIns();
-        const seedersConfig = new Umzug({
+        const seedersConfig = new   ({
             migrations: {
                 path: path.join(__dirname, "../seeders/"),
                 params: [

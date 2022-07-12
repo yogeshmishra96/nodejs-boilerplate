@@ -10,7 +10,7 @@ module.exports = async function () {
     db.Sequelize = Sequelize;
     db.sequelize = sequelize;
 
-    const modelPath = path.join(process.cwd(), "/DB/models");
+    const modelPath = path.join(__dirname, "../models");
 
     // loop through all files in models directory
     fs.readdirSync(modelPath)

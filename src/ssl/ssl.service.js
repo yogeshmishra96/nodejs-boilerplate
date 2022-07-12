@@ -8,8 +8,8 @@ const generateSelfSignedSSL = async () => {
     try {
         const attrs = [{ name: 'commonName', value: 'localhost' }];
         const pems = selfsigned.generate(attrs, { days: 365 });
-        const privateKey = path.join(__dirname, 'ssl/');
-        const certificatePath = path.join(__dirname, 'ssl/');
+        const privateKey = path.join(__dirname, 'keys/');
+        const certificatePath = path.join(__dirname, 'keys/');
         if (!fs.existsSync(privateKey)) {
             fs.mkdirSync(privateKey, { recursive: true });
         }
@@ -27,8 +27,8 @@ const generateSelfSignedSSL = async () => {
 
 const getSSLConfig = () => {
     const { SSL_KEY_PATH, SSL_CERT_PATH, FILE_STORAGE_PATH } = process.env;
-    let SSL_KEY = path.join(__dirname, "ssl/localhost.key");
-    let SSL_CERT = path.join(__dirname, "ssl/localhost.crt");
+    let SSL_KEY = path.join(__dirname, "keys/localhost.key");
+    let SSL_CERT = path.join(__dirname, "keys/localhost.crt");
     // if (fs.existsSync(path.join(FILE_STORAGE_PATH, "server-config/ssl/localhost.key"))) {
     //     SSL_KEY = path.join(FILE_STORAGE_PATH, "server-config/ssl/localhost.key");
     // }
