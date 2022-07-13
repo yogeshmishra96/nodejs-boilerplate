@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const serverLogsRoute = require("./app/server-logging/server-logging.route");
+const { loadRoutesAndMiddleware } = require("./utilities/server-utill");
 
 const app = express();
 
@@ -11,7 +12,8 @@ app.use(require("./middlewares/response-handler.middleware"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/", serverLogsRoute);
+loadRoutesAndMiddleware(app);
+
 
 app.use("/api/v1", require("./middlewares/error-response-handler.middleware"));
 app.use("/api/v1", require("./middlewares/error-handler.middleware"));
