@@ -14,11 +14,11 @@ const loadRoutesAndMiddleware = async function (app) {
                 const fileName = file.split(".");
                 const modelData = fileName[1];
                 if (modelData && modelData.toLowerCase() === "route") {
-                    // eslint-disable-next-line import/no-dynamic-require
+                    // eslint-disable-next-line import/no-dynamic-require, global-require
                     return app.use(require(path.join(routePath, file)));
                 }
             });
-        };
+        }
     } catch (error) {
         throw new Error("Error while loading all routes and utils file.");
     }

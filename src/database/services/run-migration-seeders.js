@@ -2,8 +2,7 @@
 
 const path = require("path");
 const Umzug = require("umzug");
-const Sequelize = require('sequelize');
-
+const Sequelize = require("sequelize");
 
 const getSequalizeIns = async () => {
     const pool = {
@@ -28,7 +27,7 @@ const getSequalizeIns = async () => {
             logging: false
         }
     );
-}
+};
 
 const runMigrationsAndSeeders = async () => {
     try {
@@ -38,7 +37,7 @@ const runMigrationsAndSeeders = async () => {
             console.log(`Migrations output : ${migrationRes || "successfully executed"}`);
         }
     } catch (err) {
-        console.log('>nodejs-boilerplate | [run-migration-seeders.js] > #39 | err : ', err);
+        console.log(">nodejs-boilerplate | [run-migration-seeders.js] > #39 | err : ", err);
         throw new Error(`runMigrationsAndSeeders.js -> ${err}`);
     }
 };
@@ -65,7 +64,7 @@ const runMigrations = async function () {
         await migrationsConfig.up();
         console.log(" migrations completed ");
     } catch (error) {
-        console.log('>nodejs-boilerplate | [run-migration-seeders.js] > #66 | error : ', error);
+        console.log(">nodejs-boilerplate | [run-migration-seeders.js] > #66 | error : ", error);
         throw error;
     }
 };
@@ -73,7 +72,7 @@ const runMigrations = async function () {
 const runSeeders = async function () {
     try {
         const sequelize = await getSequalizeIns();
-        const seedersConfig = new   ({
+        const seedersConfig = new ({
             migrations: {
                 path: path.join(__dirname, "../seeders/"),
                 params: [
@@ -88,11 +87,11 @@ const runSeeders = async function () {
                 sequelize: sequelize,
                 modelName: "system_seeds"
             }
-        });
+        })();
         await seedersConfig.up();
         console.log(" seeders completed ");
     } catch (error) {
-        console.log('>nodejs-boilerplate | [run-migration-seeders.js] > #93 | error : ', error);
+        console.log(">nodejs-boilerplate | [run-migration-seeders.js] > #93 | error : ", error);
     }
 };
 

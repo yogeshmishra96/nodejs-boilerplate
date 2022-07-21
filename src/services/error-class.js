@@ -1,3 +1,6 @@
+/* eslint-disable max-classes-per-file */
+/* eslint-disable default-param-last */
+/* eslint-disable no-nested-ternary */
 const BaseError = class extends Error {
     constructor(statusCode = 500, _message, code = "ERR_SYSTEM") {
         super(_message);

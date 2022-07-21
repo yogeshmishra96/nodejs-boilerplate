@@ -4,8 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { generateSelfSignedSSL, getSSLConfig } = require("./ssl/ssl.service");
 const { createDatabaseConnection } = require("./database/database-connection.service");
-const { runMigrationsAndSeeders  } = require("./database/services/run-migration-seeders");
-const logger = require("./logger/logger");
+const { runMigrationsAndSeeders } = require("./database/services/run-migration-seeders");
 
 const { HTTPS_PORT, HTTP_PORT } = process.env;
 
@@ -26,15 +25,11 @@ const startServer = async (app) => {
     createHttpServer();
 };
 
-const createHttpServer = () => {
-    return http.createServer(function (req, res) {
-        const redirectURL = `https://${req.headers.host}${req.url}`.replace(HTTP_PORT, HTTPS_PORT);
-        res.writeHead(301, { Location: redirectURL });
-        res.end();
-    }
-    ).listen(HTTP_PORT);
-}
-
+const createHttpServer = () => http.createServer(function (req, res) {
+    const redirectURL = `https://${req.headers.host}${req.url}`.replace(HTTP_PORT, HTTPS_PORT);
+    res.writeHead(301, { Location: redirectURL });
+    res.end();
+}).listen(HTTP_PORT);
 
 const createHttpsServer = (_app, sslConfig) => {
     const options = {
@@ -42,7 +37,7 @@ const createHttpsServer = (_app, sslConfig) => {
         cert: fs.readFileSync(path.join(sslConfig.certPath))
     };
     return https.createServer(options, _app);
-}
+};
 
 module.exports = {
     startServer

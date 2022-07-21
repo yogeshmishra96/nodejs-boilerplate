@@ -1,9 +1,10 @@
 module.exports = function (sequelize, DataTypes) {
-    const users = sequelize.define('users',
+    const users = sequelize.define(
+        "users",
         {
             id: {
                 type: DataTypes.UUID,
-                field: 'id',
+                field: "id",
                 primaryKey: true,
                 unique: true,
                 defaultValue: DataTypes.UUIDV4
@@ -29,7 +30,8 @@ module.exports = function (sequelize, DataTypes) {
             profilePic: {
                 type: DataTypes.STRING,
                 field: "profile_pic"
-            },
-        });
+            }
+        }
+    );
     return users;
 };
