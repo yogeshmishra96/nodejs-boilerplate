@@ -17,7 +17,6 @@ const consoleOptions = {
 const transports = [new winston.transports.Console(consoleOptions)];
 const exceptionHandlers = [new winston.transports.Console(consoleOptions)];
 
-
 const logger = winston.createLogger({
     exitOnError: false,
     transports: transports,

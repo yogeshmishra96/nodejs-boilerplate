@@ -35,7 +35,6 @@ const getAllUsers = async (req) => {
     return { data };
 };
 
-
 /**
  * 
  * @param {*} req 
@@ -46,7 +45,7 @@ const getUserInfoByEmail = async (req) => {
     const { emailId } = req.query;
     const userInfo = await users.findOne({ where: { email: emailId } });
     return { data: userInfo };
-}
+};
 
 module.exports = {
     createUser,

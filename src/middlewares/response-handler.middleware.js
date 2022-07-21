@@ -1,17 +1,14 @@
 // const Sequelize = require("sequelize");
-const { BaseError, RequestParamsInvalidError } = require("./../services/error-class");
+const { BaseError } = require("../services/error-class");
 const logger = require("../logger/logger");
 
 const baseError = new BaseError();
-const validationError = new RequestParamsInvalidError();
 
 module.exports = (_req, _res, _next) => {
     logger.info(`Incoming request on URL :  ${_req.url}`);
 
     // this can be used for return success response 
-    _res.success = async (data) => {
-        return _res.status(200).send({ status: "SUCCESS", code: 1000, ...data });
-    }
+    _res.success = async (data) => _res.status(200).send({ status: "SUCCESS", code: 1000, ...data });
 
     // this can we used for send error or bad request
     _res.error = async (_error) => {
@@ -39,8 +36,8 @@ module.exports = (_req, _res, _next) => {
             ...response,
             code: statusCode == 200 ? "SUCCESS" : baseError.code,
             return_code: statusCode == 200 ? 1000 : 1025
-        }
-        return _res.status(statusCode).send({ ...response, return_code: statusCode == 200 ? 1000 : 1025 });
+        };
+        return _res.status(statusCode).send(result);
     };
 
     _next();

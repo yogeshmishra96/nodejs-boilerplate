@@ -21,6 +21,7 @@ const Assert = {
         return !!cond;
     },
 
+    // eslint-disable-next-line default-param-last
     throwError(_error = BaseError, reject) {
         if (typeof _error === "function") {
             if (reject) {
