@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const serverLogsRoute = require("./app/server-logging/server-logging.route");
 const { loadRoutesAndMiddleware } = require("./utilities/server-utill");
@@ -11,6 +12,14 @@ app.use(require("./middlewares/response-handler.middleware"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    exposedHeaders: ['Content-Disposition', 'FileLength']
+}));
 
 loadRoutesAndMiddleware(app);
 
