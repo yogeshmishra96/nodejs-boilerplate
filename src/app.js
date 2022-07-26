@@ -11,6 +11,7 @@ app.use(require("./middlewares/response-handler.middleware"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(require("./middlewares/cors"));
 
 app.use(cors({
     origin: "*",
