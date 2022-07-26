@@ -33,5 +33,21 @@ module.exports = function (sequelize, DataTypes) {
             }
         }
     );
+
+    users.addHook("afterCreate", async function (userdata, options) {
+        console.log(">nodejs-boilerplate | [users.model.js] > #38 | options : ", options);
+        console.log(">nodejs-boilerplate | [users.model.js] > #39 | userData : ", userdata);
+    });
+
+    users.addHook("afterUpdate", async function (userdata, options) {
+        console.log(">nodejs-boilerplate | [users.model.js] > #43 | options : ", options);
+        console.log(">nodejs-boilerplate | [users.model.js] > #44 | userData : ", userdata);
+    });
+
+    users.addHook("afterDestroy", async function (userdata, options) {
+        console.log(">nodejs-boilerplate | [users.model.js] > #48 | userdata : ", userdata);
+        console.log(">nodejs-boilerplate | [users.model.js] > #49 | options : ", options);
+    });
+    
     return users;
 };
