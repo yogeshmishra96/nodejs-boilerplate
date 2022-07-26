@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const compression = require("compression");
 const { loadRoutesAndMiddleware } = require("./utilities/server-utill");
 
 const app = express();
@@ -11,7 +12,9 @@ app.use(require("./middlewares/response-handler.middleware"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(compression());
 app.use(require("./middlewares/cors"));
+app.use(require("./middlewares/helmet"));
 
 app.use(cors({
     origin: "*",
