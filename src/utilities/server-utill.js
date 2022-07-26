@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const router = require("express").Router();
 
 const loadRoutesAndMiddleware = async function (app) {
     try {
@@ -15,10 +16,11 @@ const loadRoutesAndMiddleware = async function (app) {
                 const modelData = fileName[1];
                 if (modelData && modelData.toLowerCase() === "route") {
                     // eslint-disable-next-line import/no-dynamic-require, global-require
-                    return app.use(require(path.join(routePath, file)));
+                    return require(path.join(routePath, file))(router);
                 }
             });
         }
+        app.use("/", router);
     } catch (error) {
         throw new Error("Error while loading all routes and utils file.");
     }
