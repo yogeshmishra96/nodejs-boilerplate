@@ -14,9 +14,13 @@ const consoleOptions = {
     )
 };
 
-const transports = [new winston.transports.Console(consoleOptions)];
+const transports = [
+    new winston.transports.Console(consoleOptions),
+    new winston.transports.File({ filename: "log/error.log", level: 0 }),
+    new winston.transports.File({ filename: "log/warn.log", level: 1 }),
+    new winston.transports.File({ filename: "log/debug.log", level: 5 })
+];
 const exceptionHandlers = [new winston.transports.Console(consoleOptions)];
-//sameer
 
 const logger = winston.createLogger({
     exitOnError: false,
